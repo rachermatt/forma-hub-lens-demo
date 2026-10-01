@@ -1,0 +1,45 @@
+# Known limitations
+
+## Synthetic portfolio only
+
+All projects, members, companies, activity, permissions, jobs, tables, integration contracts, schema notices, and closeout evidence are fictional. Fixture dates and freshness indicators do not establish that Autodesk was queried. No displayed exception establishes real noncompliance, inactivity, access risk, integration breakage, or project completion.
+
+## Identity-only Autodesk access
+
+Autodesk is used for sign-in and profile verification only. The demo does not require a Forma hub role or check Hub Admin / Executive Overview access. It does not provide real-hub portfolio data or administrative capabilities. The separate live application retains its role checks.
+
+APS tokens are not retained or refreshed. Sessions expire after eight hours; sign in again after expiry. Encrypted cookies remove shared-session database requirements, but do not provide centralized per-session revocation. Signing out clears the current browser's session; rotating the session key invalidates all existing cookies.
+
+## No live operations
+
+Unavailable operations include customer-data uploads, project/access refreshes, extraction requests or ingestion, organization edits, permission changes, public-schema capture, background monitoring, project scans, document downloads, package generation, transmittal creation, and owner acceptance.
+
+Retained shared modules demonstrate portions of the live architecture, but cannot make APS hub calls in this deployment. API metadata and fixture notices do not guarantee current Autodesk API availability or migration dates.
+
+## State and reset behavior
+
+The read dataset is seeded independently in each process from the same fictional October 1, 2026, 12:00 UTC snapshot and is immutable to visitors. It is not a mutable shared hub. Cold starts and redeployments reinitialize the sample; they do not lose sign-in state merely because a local database was reset.
+
+Administrative simulations exist only in the current React view. Leaving or resetting that view restores its sample workspace and clears its simulated history. Other portfolio pages continue showing the immutable initial dataset.
+
+Saved views, watchlist entries, favorites, and review decisions are browser-local. They can disappear when browser storage is cleared or unavailable, do not synchronize across devices, and are not durable audit or acceptance records. Watchlists do not monitor changes or send notifications. Personal review decisions appear on individual rows and do not change the fixed sample portfolio counts. Resetting demo preferences clears saved views, watchlist entries, and review decisions; tool favorites remain separate.
+
+## Reporting limits
+
+Dashboard joins and counts depend on fixture tables and identity mappings. Missing or unresolved values remain visible rather than becoming facts about real users. Some source records are intentionally incomplete. Exported rows are fictional and are not a validated Autodesk reporting extract.
+
+Project members and active people are different metrics: assigned membership versus activity identities observed in a sample window. Product access records are not commercial subscription balances.
+
+## Integration Health limits
+
+Consumers declare their own dependencies in the live architecture; the public demo uses canned examples. It does not inspect downstream source code, Power BI refreshes, ETL systems, API traffic, or customer subscriptions. A readiness result demonstrates local evidence checks only; it is not production compatibility certification.
+
+There is no server scheduler, CDC monitor, or live deprecation feed in this deployment. Vercel functions must not be treated as a continuously running background process.
+
+## Closeout limits
+
+Sample turnover evidence does not establish document approval, asset completeness, regulatory compliance, or owner acceptance. Document examples are metadata, not downloaded file binaries. No actual package, signed acceptance, or immutable closeout history is produced by the demo.
+
+## Deployment limits
+
+The callback must be registered exactly for each stable origin used for sign-in. Random preview URLs need their own registered callback or a stable preview domain. Production environment-variable changes require a new deployment. Publishing this repository does not automatically update a Vercel project connected to another repository or old source commit.
