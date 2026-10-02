@@ -1,6 +1,6 @@
 # Administrative usability in the demo
 
-The public sample carries the portfolio navigation and readability improvements from Forma Hub Lens into a separate synthetic experience.
+The public sample carries the portfolio navigation and readability improvements from Forma Hub Lens into a separate synthetic experience. It opens directly without Autodesk sign-in and makes no APS API calls.
 
 ## Navigation and chart readability
 

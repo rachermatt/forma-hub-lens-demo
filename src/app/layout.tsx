@@ -3,18 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import "./globals.css";
 import { getSession } from "@/lib/aps/auth";
-import { configProblems, env } from "@/lib/env";
-import { StorageWarning } from "@/components/StorageWarning";
+import { env } from "@/lib/env";
 import { PrimaryNav } from "@/components/PrimaryNav";
 import { HeaderSearch } from "@/components/HeaderSearch";
 import { HeaderSavedMenu } from "@/components/HeaderSavedMenu";
-import { ProvenanceBadge } from "@/components/ProvenanceBadge";
 import { HubModeSwitch } from "@/components/HubModeSwitch";
 import { DemoHubBanner } from "@/components/DemoHubBanner";
-import { portfolioSource } from "@/lib/governance";
-import { listTables } from "@/lib/dataset";
-import { listSavedViews, listWatchItems, savedViewsOwner } from "@/lib/savedViews";
-import { signOut } from "./actions";
+import { savedViewsOwner } from "@/lib/savedViews";
 
 export const metadata: Metadata = {
   title: "Forma Hub Lens (Demo)",
@@ -43,18 +38,12 @@ function AutodeskMark() {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const problems = configProblems();
-  // Keep the setup screen renderable when LENS_MODE itself is invalid.
-  const demoMode = true;
-  const session = problems.length === 0 ? await getSession() : null;
-  const source = session && !demoMode ? portfolioSource() : null;
-  const tables = session && !demoMode ? listTables() : [];
-  const latestZipImport = tables.length ? Math.max(...tables.map((table) => table.uploadedAt)) : null;
+  const session = await getSession();
   const savedOwner = session ? savedViewsOwner(session) : null;
   const savedSummary = {
     hasOwner: Boolean(savedOwner),
-    views: savedOwner ? listSavedViews(savedOwner).slice(0, 4) : [],
-    watched: savedOwner ? listWatchItems(savedOwner).slice(0, 4) : [],
+    views: [],
+    watched: [],
   };
 
   return (
@@ -69,60 +58,27 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               </span>
             </Link>
 
-            <HubModeSwitch demoMode={demoMode} demoUrl={env.demoHubUrl} liveUrl={env.liveHubUrl} />
+            <HubModeSwitch demoMode demoUrl={env.demoHubUrl} liveUrl={env.liveHubUrl} />
 
-            <PrimaryNav isHubAdmin={session?.hubRole === "hub_admin" || session?.mode === "demo"} />
+            <PrimaryNav isHubAdmin />
 
             <div className="ml-auto flex flex-wrap items-center gap-3 text-xs">
-              {session ? (
-                <>
-                  <HeaderSearch demoMode={demoMode} />
-                  <HeaderSavedMenu initial={savedSummary} owner={savedOwner} />
-                  <span className="text-adsk-lightgray">
-                    {session.userName || session.userEmail || "signed in"}
-                  </span>
-                  <form action={signOut}>
-                    <button
-                      type="submit"
-                      className="rounded border border-adsk-gray px-2.5 py-1.5 font-legend text-xs text-adsk-lightgray hover:border-adsk-white hover:text-adsk-white"
-                    >
-                      Sign out
-                    </button>
-                  </form>
-                </>
-              ) : (
-                <a
-                  href="/api/aps/login"
-                  className="rounded border border-adsk-lightgray bg-adsk-yellow px-3 py-1.5 font-legend text-xs text-adsk-black hover:opacity-90"
-                >
-                  Sign in with Autodesk
-                </a>
-              )}
+              <HeaderSearch demoMode />
+              <HeaderSavedMenu initial={savedSummary} owner={savedOwner} />
             </div>
           </div>
         </header>
 
-        {demoMode && <DemoHubBanner />}
+        <DemoHubBanner />
 
-        {session && <div role="note" aria-label="Data source status" className="border-b border-adsk-lightgray bg-adsk-white">
+        <div role="note" aria-label="Data source status" className="border-b border-adsk-lightgray bg-adsk-white">
           <div className="mx-auto flex max-w-[1500px] flex-wrap items-center gap-x-2 gap-y-1 px-6 py-2">
             <span className="mr-1 text-[10px] font-semibold uppercase tracking-wide text-adsk-gray">Sources</span>
-            {demoMode ? (
-              <span className="rounded border border-adsk-gold bg-adsk-yellow/15 px-2 py-0.5 text-[11px] text-adsk-black">
-                Sample data · synthetic hub records
-              </span>
-            ) : <>
-              {source?.projectSyncedAt ? <ProvenanceBadge source="project-sync" asOf={source.projectSyncedAt} />
-                : <span className="rounded border border-adsk-lightgray px-2 py-0.5 text-[11px] text-adsk-gray">Projects · not synced</span>}
-              {source?.activityIngestedAt ? <ProvenanceBadge source="activity-ingest" asOf={source.activityIngestedAt} />
-                : <span className="rounded border border-adsk-lightgray px-2 py-0.5 text-[11px] text-adsk-gray">Activity · not ingested</span>}
-              {latestZipImport ? <ProvenanceBadge source="user-zip" asOf={latestZipImport} />
-                : <span className="rounded border border-adsk-lightgray px-2 py-0.5 text-[11px] text-adsk-gray">User ZIP · not loaded</span>}
-            </>}
+            <span className="rounded border border-adsk-gold bg-adsk-yellow/15 px-2 py-0.5 text-[11px] text-adsk-black">
+              Sample data · synthetic hub records
+            </span>
           </div>
-        </div>}
-
-        {!demoMode && <StorageWarning />}
+        </div>
 
         <main className="mx-auto w-full max-w-[1500px] flex-1 px-6 py-6">{children}</main>
 

@@ -4,11 +4,11 @@
 
 All projects, members, companies, activity, permissions, jobs, tables, integration contracts, schema notices, and closeout evidence are fictional. Fixture dates and freshness indicators do not establish that Autodesk was queried. No displayed exception establishes real noncompliance, inactivity, access risk, integration breakage, or project completion.
 
-## Identity-only Autodesk access
+## Anonymous access
 
-Autodesk is used for sign-in and profile verification only. The demo does not require a Forma hub role or check Hub Admin / Executive Overview access. It does not provide real-hub portfolio data or administrative capabilities. The separate live application retains its role checks.
+Anyone can explore the demo without an Autodesk account, authentication session, or Forma hub role. The demo makes no APS API calls and stores no verified visitor identity or Autodesk tokens. It does not provide real-hub portfolio data or administrative capabilities. The separate live application still requires Autodesk sign-in, Hub Admin / Executive Overview access for portfolio data, and Hub Admin for administrative changes.
 
-APS tokens are not retained or refreshed. Sessions expire after eight hours; sign in again after expiry. Encrypted cookies remove shared-session database requirements, but do not provide centralized per-session revocation. Signing out clears the current browser's session; rotating the session key invalidates all existing cookies.
+Browser-local preferences have no account separation. People sharing a browser profile share its demo preferences. Deployment-provider request logs are governed by the provider's settings.
 
 ## No live operations
 
@@ -18,7 +18,7 @@ Retained shared modules demonstrate portions of the live architecture, but canno
 
 ## State and reset behavior
 
-The read dataset is seeded independently in each process from the same fictional October 1, 2026, 12:00 UTC snapshot and is immutable to visitors. It is not a mutable shared hub. Cold starts and redeployments reinitialize the sample; they do not lose sign-in state merely because a local database was reset.
+The read dataset is seeded independently in each process from the same fictional October 1, 2026, 12:00 UTC snapshot and is immutable to visitors. It is not a mutable shared hub. Cold starts and redeployments reinitialize the same sample; browser-local preferences remain subject to the browser's storage behavior.
 
 Administrative simulations exist only in the current React view. Leaving or resetting that view restores its sample workspace and clears its simulated history. Other portfolio pages continue showing the immutable initial dataset.
 
@@ -42,4 +42,4 @@ Sample turnover evidence does not establish document approval, asset completenes
 
 ## Deployment limits
 
-The callback must be registered exactly for each stable origin used for sign-in. Random preview URLs need their own registered callback or a stable preview domain. Production environment-variable changes require a new deployment. Publishing this repository does not automatically update a Vercel project connected to another repository or old source commit.
+No APS application, credentials, callback registration, session secret, or environment variables are required. Preview URLs work without callback registration. Optional environment-variable changes require a new deployment. Publishing this repository does not automatically update a Vercel project connected to another repository or old source commit.

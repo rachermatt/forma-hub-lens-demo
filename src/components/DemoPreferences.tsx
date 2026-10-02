@@ -24,7 +24,7 @@ export function useDemoPreferences(owner: string | null) {
     return () => { window.removeEventListener(DEMO_PREFERENCES_EVENT, load); window.removeEventListener("storage", load); };
   }, [key]);
   const update = useCallback((change: (current: DemoPreferences) => DemoPreferences): boolean => {
-    if (!key) { setError("Sign in to save demo preferences."); return false; }
+    if (!key) { setError("Demo preferences are unavailable. Reload this page to try again."); return false; }
     try {
       const next = change(parseDemoPreferences(window.localStorage.getItem(key)));
       window.localStorage.setItem(key, JSON.stringify(next));
@@ -91,7 +91,7 @@ export function DemoSavedItems({ owner, pathToSave }: { owner: string | null; pa
   const [name, setName] = useState("");
   const [notice, setNotice] = useState("");
   return <div className="space-y-5">
-    <p className="text-sm text-adsk-gray">Demo views, watchlists, and review decisions stay in this browser, scoped to your signed-in account. They create no monitoring and are never stored on the server.</p>
+    <p className="text-sm text-adsk-gray">Demo views, watchlists, and review decisions stay in this browser. They create no monitoring and are never stored on the server. Anyone using this browser profile can see these preferences.</p>
     {error && <p role="alert" className="text-xs text-adsk-gray">{error}</p>}
     {notice && <p role="status" className="text-xs text-adsk-black">{notice}</p>}
     {pathToSave && <form className="flex flex-wrap items-end gap-3 rounded border border-adsk-lightgray bg-white p-4" onSubmit={(event) => {

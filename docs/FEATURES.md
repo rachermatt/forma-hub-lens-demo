@@ -1,6 +1,6 @@
 # Feature guide and source limits
 
-This guide describes **Forma Hub Lens (Demo)**. All portfolio sources are bundled fictional fixtures. Autodesk is used only for OAuth sign-in and User Profile identity verification.
+This guide describes **Forma Hub Lens (Demo)**. All portfolio sources are bundled fictional fixtures. Anyone can open the demo directly without Autodesk sign-in; the demo makes no APS API calls.
 
 ## Navigation
 
@@ -13,7 +13,7 @@ This guide describes **Forma Hub Lens (Demo)**. All portfolio sources are bundle
 | Data | Sample extracts, Data Health, Integration Health |
 | Admin | Browser-only bulk simulations, sample provisioning recipe, simulation history |
 
-Global search connects projects, people, and companies. The Saved header control opens browser-local bookmarks and saved filters. Optional external deployment links never switch this build into live mode.
+Global search connects projects, people, and companies. The Saved header control opens browser-local bookmarks and saved filters shared by visitors using that browser profile. Optional external deployment links never switch this build into live mode.
 
 ## Thirteen foundational capabilities
 
@@ -58,7 +58,7 @@ Integration Health illustrates schema/migration mapping, extraction inventory, c
 
 ## Data provenance
 
-Sample badges and the persistent demo banner identify the origin of portfolio data. Synthetic timestamps can be relative to the fixture clock, so a recent sample date is not evidence that Autodesk was queried. Your Autodesk account is used for identity only.
+Sample badges and the persistent demo banner identify the origin of portfolio data. Synthetic timestamps can be relative to the fixture clock, so a recent sample date is not evidence that Autodesk was queried. No Autodesk account or verified visitor identity is used.
 
 ## Unavailable operations
 

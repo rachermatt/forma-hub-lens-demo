@@ -2,30 +2,21 @@
 
 ## What this build does
 
-Forma Hub Lens (Demo) lets an Autodesk user explore a fictional portfolio. Autodesk provides sign-in identity only. Every hub record and administrative result is simulated.
+Forma Hub Lens (Demo) lets anyone explore a fictional portfolio directly in the browser. No Autodesk account or sign-in is required. Every hub record and administrative result is simulated, and the app makes no APS API calls.
 
 The banner remains visible throughout the application:
 
-> Synthetic demo hub — hub data and actions are simulated. Autodesk is used only for sign-in.
+> Synthetic demo hub — all data and administrative actions are simulated. No Autodesk sign-in required.
 
-No Hub Admin or Executive Overview role is required. The separate live application still enforces those roles.
+No Hub Admin or Executive Overview role is required in the demo. The separate live application requires Autodesk sign-in and still enforces those roles.
 
 ## Local setup
 
 1. Install Node.js 24.x and npm.
-2. Create a separate APS **Traditional Web App** and enable User Profile access.
-3. Register `http://localhost:3000/api/aps/callback` on that application. If retaining another localhost callback for a separate local preview, keep it as an additional callback.
-4. Run `npm ci` and copy `.env.example` to `.env.local`.
-5. Set the demo client ID, client secret, exact callback, and a random `DEMO_SESSION_SECRET` of 64 hexadecimal characters. Keep `LENS_MODE=demo`.
-6. Run `npm run dev` and open [localhost:3000](http://localhost:3000).
+2. Run `npm ci` from the repository root.
+3. Run `npm run dev` and open [localhost:3000](http://localhost:3000).
 
-Generate the session key privately with:
-
-```bash
-node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
-```
-
-Do not set a real hub ID or reuse the live application's credentials. No Custom Integration registration in a real hub is needed. Filled-in `.env.local` files are excluded from Git.
+No environment file, APS application, credentials, callback registration, or session secret is required. Optional settings are `LENS_MODE=demo` (the default) and `LENS_LIVE_URL` for an external live-deployment link. Do not configure a real hub ID or copy live credentials into this demo. Local environment files are excluded from Git.
 
 ## Suggested walkthrough
 
@@ -37,7 +28,7 @@ Open **Projects → Project inventory**. **Project members** counts assigned fic
 
 ### Investigate
 
-Use **People & Access** for the directory, access matrix, permission explorer, and offboarding plan examples. Person and company profiles connect the sample relationships. The identity in the account menu is your Autodesk identity; it is not one of the fictional portfolio members.
+Use **People & Access** for the directory, access matrix, permission explorer, and offboarding plan examples. Person and company profiles connect the sample relationships. Every displayed portfolio identity is fictional.
 
 Under **Insights**, open any of the 21 tool dashboards, filter **Activity**, or inspect grouped **Governance** findings. Multi-selection uses checkboxes and Select all shown. No observed activity is a sample-window observation, not a finding that a real project is inactive. Personal governance and lifecycle review decisions appear on individual rows; they do not remove findings from, or change counts in, the fixed sample portfolio summaries.
 
@@ -55,10 +46,10 @@ Try adding members, removing members, creating projects, and archiving projects.
 
 ## Personal browser state
 
-Saved views, watchlist entries, governance/lifecycle review decisions, and favorite tools are stored locally in the browser. They are not server audit records, cross-device preferences, notifications, or scheduled checks. Clearing browser storage removes them. **Reset my demo preferences** clears saved views, watchlist entries, and governance/lifecycle decisions for the signed-in account in this browser. Tool favorites are separate and can be changed in the tool library. Shared computers require the same care as any browser-local bookmark store.
+Saved views, watchlist entries, governance/lifecycle review decisions, and favorite tools are stored locally in the browser. They are not server audit records, cross-device preferences, notifications, or scheduled checks. Clearing browser storage removes them. **Reset my demo preferences** clears saved views, watchlist entries, and governance/lifecycle decisions in this browser. Tool favorites are separate and can be changed in the tool library. Preferences are shared by people using the same browser profile; there is no visitor-account separation.
 
-## Sign-out and session expiry
+## Legacy sign-in links
 
-The encrypted identity session expires after eight hours. Sign out to clear the application's cookie; this does not sign out of Autodesk globally. Sign in again after expiry. No APS access or refresh token is retained after identity verification.
+Old demo login and callback links return to the home page. The current demo does not establish an Autodesk session or ask visitors to sign out. To access a real hub, open the optional **Live hub** link to the separate application and complete its own sign-in and authorization checks.
 
 For public hosting, follow [Vercel deployment](DEPLOYMENT.md).

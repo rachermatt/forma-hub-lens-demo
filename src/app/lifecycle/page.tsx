@@ -194,8 +194,6 @@ export default async function LifecyclePage({ searchParams }: { searchParams: Pr
       <p className="mt-1 max-w-3xl text-sm text-adsk-gray">Review possible archive candidates and archived projects. A candidate is a prompt to investigate; decisions here stay in this browser and do not change Autodesk project status. Summary counts describe the fixed sample; personal choices appear on each project.</p>
     </div>
     {message && <p role="status" className={`rounded border px-3 py-2 text-xs ${message.error ? "border-adsk-linkvisited bg-adsk-linkvisited/10" : "border-adsk-lightgray bg-adsk-white"}`}>{message.text}</p>}
-    {!owner && <p role="alert" className="rounded border border-adsk-gold bg-adsk-gold/10 px-3 py-2 text-xs">Autodesk did not provide a stable user ID or email. Lifecycle decisions cannot be saved for this sign-in.</p>}
-
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
       <Stat label="Review now" value={String(reviewNow.length)} hint="Current signals without a personal decision" />
       <Stat label="Prepare archive" value={String(prepared.length)} hint="Local review state; no project archived" />

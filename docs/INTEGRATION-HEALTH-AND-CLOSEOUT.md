@@ -57,4 +57,4 @@ In the live architecture, a package requires authenticated retrieval of exact fi
 
 ## Source distinction
 
-The real component in this deployment is Autodesk sign-in. Every portfolio record, integration, schema snapshot, extraction, turnover requirement, and assessment result comes from the demo fixture dataset. No ongoing background checks or notifications are created.
+This deployment requires no Autodesk sign-in and makes no APS API calls. Every portfolio record, integration, schema snapshot, extraction, turnover requirement, and assessment result comes from the demo fixture dataset. No ongoing background checks or notifications are created.

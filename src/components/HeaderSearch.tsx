@@ -69,7 +69,7 @@ export function HeaderSearch({ demoMode = false }: { demoMode?: boolean }) {
         const response = await fetch(`/api/search/suggest?q=${encodeURIComponent(term)}`, {
           cache: "no-store", signal: controller.signal,
         });
-        if (!response.ok) throw new Error(response.status === 401 ? "Sign in again to search." : "Suggestions are unavailable.");
+        if (!response.ok) throw new Error("Suggestions are unavailable. Reload the page to try again.");
         const body = await response.json() as SuggestionResponse;
         if (!controller.signal.aborted) setResults(body);
       } catch (cause) {

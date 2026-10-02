@@ -188,7 +188,7 @@ export default async function OverviewPage() {
       </Card>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <Card title="My tools" subtitle={demoMode ? "Browser-local favorites for this synthetic demo." : "Browser-local favorites for this Autodesk identity and hub."}
+        <Card title="My tools" subtitle="Browser-local favorites for this synthetic demo."
           action={<Link href="/tools" className="text-xs text-adsk-link hover:underline">Browse tools →</Link>}>
           <FavoriteTools tools={TOOL_SPECS.map(({ id, name }) => ({ id, name }))}
             storageKey={toolFavoritesKey(env.hubId, savedOwner)} />
@@ -197,7 +197,7 @@ export default async function OverviewPage() {
           action={<Link href="/views" className="text-xs text-adsk-link hover:underline">Open Saved →</Link>}>
           {savedOwner ? (
             <DemoSavedCounts owner={savedOwner} />
-          ) : <p className="text-xs text-adsk-gray">Autodesk did not provide a stable identity for saved items.</p>}
+          ) : <p className="text-xs text-adsk-gray">Demo saved items are unavailable. Reload this page to try again.</p>}
         </Card>
       </div>
 

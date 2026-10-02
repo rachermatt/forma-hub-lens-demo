@@ -53,7 +53,7 @@ export function HeaderSavedMenu({ initial, owner = null }: { initial: Summary; o
             <span className="shrink-0 text-[10px] uppercase text-adsk-gray">{item.kind}</span><span className="truncate">{item.label}</span>
           </Link>
         )) : <p className="px-2 py-1.5 text-[11px] text-adsk-gray">No watched projects or people yet.</p>}
-        {!summary.hasOwner && <p className="mt-2 px-2 text-[11px] text-adsk-gold">Autodesk did not provide a stable identity for saved items.</p>}
+        {!summary.hasOwner && <p className="mt-2 px-2 text-[11px] text-adsk-gold">Demo saved items are unavailable. Reload this page to try again.</p>}
         <Link href="/views" onClick={close}
           className="mt-2 block rounded border-t border-adsk-gray px-2 py-2 text-xs font-medium text-adsk-yellow hover:bg-white/10">
           Manage saved items →

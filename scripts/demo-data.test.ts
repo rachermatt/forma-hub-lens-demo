@@ -67,8 +67,12 @@ test("the public demo database performs no filesystem writes and denies server-s
   } finally { closeDb(); fs.rmSync(temp, { recursive: true, force: true }); delete process.env.DATA_DIR; }
 });
 
-test("browser-local demo preferences are account scoped and reject hostile or malformed links", () => {
-  assert.notEqual(demoPreferencesKey("autodesk:first"), demoPreferencesKey("autodesk:second"));
+test("anonymous preferences use the browser demo namespace and reject hostile or malformed links", async () => {
+  const { savedViewsOwner } = await import("../src/lib/savedViews.ts");
+  const { requireSession } = await import("../src/lib/aps/auth.ts");
+  const owner = savedViewsOwner(await requireSession());
+  assert.equal(owner, "demo:browser");
+  assert.ok(demoPreferencesKey(owner));
   assert.equal(demoPreferencesKey(null), null);
   assert.equal(safeDemoViewPath("//attacker.example"), null);
   assert.equal(safeDemoViewPath("https://attacker.example"), null);

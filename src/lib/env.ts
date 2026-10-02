@@ -1,36 +1,11 @@
 import "server-only";
-import { DEMO_HUB_ID, demoCallbackProblem, hubDeploymentUrl, lensMode } from "./demoConfig";
-import { demoSecretProblem } from "./demoCookies";
-
-function required(name: string): string {
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(
-      `Missing required environment variable ${name}. Copy .env.example to .env.local and fill it in.`,
-    );
-  }
-  return value;
-}
+import { DEMO_HUB_ID, hubDeploymentUrl, lensMode } from "./demoConfig";
 
 export const env = {
   get mode() { return lensMode(); },
   get demoMode() { return lensMode() === "demo"; },
   get demoHubUrl() { return hubDeploymentUrl(process.env.LENS_DEMO_URL); },
   get liveHubUrl() { return hubDeploymentUrl(process.env.LENS_LIVE_URL); },
-  get clientId() {
-    return required("APS_CLIENT_ID");
-  },
-  get clientSecret() {
-    return required("APS_CLIENT_SECRET");
-  },
-  get callbackUrl() {
-    return required("APS_CALLBACK_URL");
-  },
-  get demoSessionSecret() {
-    const secret = required("DEMO_SESSION_SECRET");
-    if (demoSecretProblem(secret)) throw new Error("Invalid DEMO_SESSION_SECRET configuration.");
-    return secret;
-  },
   get hubId() {
     lensMode();
     return DEMO_HUB_ID;
@@ -58,13 +33,6 @@ export const env = {
 export function configProblems(): string[] {
   const problems: string[] = [];
   try { lensMode(); } catch (error) { problems.push((error as Error).message); }
-  for (const name of ["APS_CLIENT_ID", "APS_CLIENT_SECRET", "APS_CALLBACK_URL"]) {
-    if (!process.env[name]) problems.push(`${name} is not set`);
-  }
-  const secretProblem = demoSecretProblem(process.env.DEMO_SESSION_SECRET);
-  if (secretProblem) problems.push(secretProblem);
-  const callbackProblem = demoCallbackProblem(process.env.APS_CALLBACK_URL);
-  if (callbackProblem) problems.push(callbackProblem);
   if (process.env.FORMA_HUB_ID?.trim() && process.env.FORMA_HUB_ID.trim() !== DEMO_HUB_ID) {
     problems.push("FORMA_HUB_ID must not identify a real hub in the synthetic demo. Remove this variable.");
   }

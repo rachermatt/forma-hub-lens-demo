@@ -7,9 +7,9 @@
 
 A public, synthetic demonstration of Forma Hub Lens: one place to explore a Forma portfolio, investigate access and data, review closeout readiness, and practice controlled administrative workflows.
 
-**Synthetic demo hub — hub data and actions are simulated. Autodesk is used only for sign-in.**
+**Synthetic demo hub — all data and administrative actions are simulated. No Autodesk sign-in required.**
 
-Any ordinary Autodesk account can sign in. No membership in a particular Forma hub, Hub Admin role, Executive Overview role, or Forma subscription is required. The signed-in identity is real; the projects, people, companies, dashboards, jobs, integration findings, and closeout evidence are fictional.
+Anyone can open the demo directly. No Autodesk account, hub membership, Hub Admin role, Executive Overview role, or Forma subscription is required. The projects, people, companies, dashboards, jobs, integration findings, and closeout evidence are fictional. This deployment makes no APS API calls.
 
 ![Forma Hub Lens illustrative preview](thumbnail.png)
 
@@ -17,7 +17,7 @@ Any ordinary Autodesk account can sign in. No membership in a particular Forma h
 
 Public deployment target: [forma-hub-lens.vercel.app](https://forma-hub-lens.vercel.app/). A repository update does not deploy the site by itself; the Vercel project must be connected and configured using the [deployment guide](docs/DEPLOYMENT.md).
 
-1. Sign in with Autodesk.
+1. Open the public demo; no sign-in is required.
 2. Explore **Overview**, **Projects**, **People & Access**, **Insights**, **Data**, and **Admin**.
 3. Open a project, person, or company to follow its fictional relationships.
 4. Try **Admin → Bulk management**: configure, preview, confirm, and run a simulation.
@@ -29,32 +29,16 @@ Saved views, watchlist bookmarks, review decisions, and tool favorites use brows
 
 ## Run locally
 
-Requires **Node.js 24.x**, npm, and a separate APS **Traditional Web App** with User Profile access. Register `http://localhost:3000/api/aps/callback` as an OAuth callback. Do not provision this demo application as a custom integration in a real hub.
+Requires **Node.js 24.x** and npm. No APS application, credentials, callback registration, session secret, or environment file is required.
 
 ```bash
 npm ci
-cp .env.example .env.local
-```
-
-Set the following privately in `.env.local`:
-
-- `APS_CLIENT_ID` and `APS_CLIENT_SECRET` from your demo APS application.
-- `APS_CALLBACK_URL=http://localhost:3000/api/aps/callback`.
-- `DEMO_SESSION_SECRET`, a random 32-byte key encoded as 64 hexadecimal characters.
-
-Generate the session key locally:
-
-```bash
-node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
-```
-
-Keep the key and client secret out of Git, screenshots, and shared logs. Then run:
-
-```bash
 npm run dev
 ```
 
 Open [localhost:3000](http://localhost:3000). The sample data is loaded automatically; no extract upload or project sync is needed.
+
+The optional settings in `.env.example` are `LENS_MODE=demo` (the default) and `LENS_LIVE_URL`, an external link to a separately hosted live application.
 
 For a production build:
 
@@ -67,7 +51,7 @@ npm start
 
 This repository is a demo-only derivative of [Forma Hub Lens](https://github.com/autodesk-platform-services/forma-hub-lens). It does not publish changes to that repository or alter its deployment. This build rejects live mode and does not use a real Forma hub ID. An optional **Live hub** header link opens a separately configured deployment; it does not change this app's authorization or dataset.
 
-The live application retains its Hub Admin / Executive Overview checks and Hub Admin requirements for administrative changes. Those live capabilities are not enabled by signing in here.
+The live application requires Autodesk sign-in, retains its Hub Admin / Executive Overview checks, and requires Hub Admin for administrative changes. Opening the public demo grants no access to that separate application.
 
 ## Documentation
 
@@ -89,7 +73,7 @@ npm run build
 npm run test:smoke
 ```
 
-Tests use synthetic fixtures and mocked responses. They do not establish that a deployed APS application has correct credentials or callback registration. Complete the sign-in smoke test after deployment.
+Tests use synthetic fixtures and mocked responses; they require no APS credentials or Autodesk sign-in. After deployment, verify that the portfolio opens directly, the synthetic banner remains visible, and administrative actions are simulated.
 
 ## License and attribution
 

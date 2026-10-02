@@ -1,11 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import {
-  clearSessionCookie,
-  destroySession,
-  getSession,
   requireHubAdminSession,
   requireSession,
 } from "@/lib/aps/auth";
@@ -37,13 +33,6 @@ function selectedExtractProjects(formData: FormData): string[] | undefined {
   const known = new Set(cachedProjects().map((project) => project.id));
   if (ids.some((id) => !known.has(id))) throw new Error("A selected project is not in the synced hub list.");
   return ids;
-}
-
-export async function signOut(): Promise<void> {
-  const session = await getSession();
-  if (session) destroySession(session.id);
-  await clearSessionCookie();
-  redirect("/");
 }
 
 export async function refreshProjects(

@@ -106,8 +106,6 @@ export default async function GovernancePage({ searchParams }: { searchParams: P
     </div>
 
     {message && <p role="status" className={`rounded border px-3 py-2 text-xs ${message.error ? "border-adsk-linkvisited bg-adsk-linkvisited/10" : "border-adsk-lightgray bg-adsk-white"}`}>{message.text}</p>}
-    {!owner && <p role="alert" className="rounded border border-adsk-gold bg-adsk-gold/10 px-3 py-2 text-xs">Autodesk did not provide a stable user ID or email. Review decisions cannot be saved for this sign-in.</p>}
-
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
       {RULES.map((rule) => <Stat key={rule.key} label={rule.label} value={String(openByRule.get(rule.key)?.length ?? 0)} hint="Findings in the fixed sample" />)}
     </div>

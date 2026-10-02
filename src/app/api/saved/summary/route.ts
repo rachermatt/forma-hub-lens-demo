@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   try {
     const session = await getSession();
-    if (!session) return NextResponse.json({ error: "Not signed in" }, { status: 401, headers: { "Cache-Control": "private, no-store" } });
+    if (!session) return NextResponse.json({ error: "Demo configuration is invalid" }, { status: 503, headers: { "Cache-Control": "private, no-store" } });
     const owner = savedViewsOwner(session);
     return NextResponse.json({
       hasOwner: Boolean(owner),

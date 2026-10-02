@@ -4,9 +4,8 @@ export function SetupRequired({ problems }: { problems: string[] }) {
   return (
     <Card title="Configuration incomplete">
       <p className="text-xs text-adsk-black">
-        Copy <code className="rounded bg-adsk-lightgray px-1">.env.example</code> to{" "}
-        <code className="rounded bg-adsk-lightgray px-1">.env.local</code> and fill in the values below,
-        then restart <code className="rounded bg-adsk-lightgray px-1">npm run dev</code>. On Vercel, set these values in Production environment variables and create a new deployment.
+        This deployment serves synthetic demo data without sign-in or APS credentials. Correct
+        the configuration below, then restart the local server or create a new Vercel deployment.
       </p>
       <ul className="mt-3 space-y-1 text-xs text-adsk-linkvisited">
         {problems.map((problem) => (
@@ -31,14 +30,13 @@ export function SignInRequired() {
           <div className="rounded border border-adsk-lightgray p-3"><strong className="block text-adsk-black">Preview workflows</strong>See how administrative decisions are prepared and reviewed.</div>
         </div>
         <p className="mt-4 max-w-2xl text-xs text-adsk-gray">
-          Any Autodesk account can sign in; membership in the sample hub is not required.
-          Autodesk is used only for sign-in. Hub data and actions in this demo are simulated.
+          No account or Autodesk sign-in is required. All data and administrative actions are simulated.
         </p>
         <a
-          href="/api/aps/login"
+          href="/"
           className="mt-4 inline-block rounded border border-adsk-lightgray bg-adsk-yellow px-3 py-1.5 text-xs font-medium text-adsk-black hover:opacity-90"
         >
-          Sign in to the demo with Autodesk
+          Open demo hub
         </a>
       </Card>
     );

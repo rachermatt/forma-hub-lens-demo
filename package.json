@@ -2,7 +2,7 @@
   "name": "forma-hub-lens-demo",
   "version": "1.0.0",
   "private": true,
-  "description": "Synthetic Forma Hub Lens demo with Autodesk identity-only sign-in",
+  "description": "Public synthetic Forma Hub Lens demo with no sign-in required",
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
